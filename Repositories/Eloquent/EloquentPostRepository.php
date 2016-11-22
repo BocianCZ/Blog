@@ -80,7 +80,12 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
         return $this->model->whereHas('translations', function (Builder $q) use ($lang) {
             $q->where('locale', "$lang");
             $q->where('title', '!=', '');
-        })->with('translations')->whereStatus(Status::PUBLISHED)->orderBy('created_at', 'DESC')->get();
+        })
+            ->with('translations')
+            ->whereStatus(Status::PUBLISHED)
+            ->where('locale', '=', $lang)
+            ->orderBy('created_at', 'DESC')
+            ->get();
     }
 
     /**
@@ -91,6 +96,21 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
     public function latest($amount = 5)
     {
         return $this->model->whereStatus(Status::PUBLISHED)->orderBy('created_at', 'desc')->take($amount)->get();
+    }
+
+    /**
+     * Return the latest x blog posts
+     * @param int $amount
+     * @param string $locale
+     * @return Collection
+     */
+    public function latestInLanguage($amount = 5, $locale)
+    {
+        return  $this->model->whereStatus(Status::PUBLISHED)
+            ->where('locale', '=', $locale)
+            ->orderBy('created_at', 'desc')
+            ->take($amount)
+            ->get();
     }
 
     /**
