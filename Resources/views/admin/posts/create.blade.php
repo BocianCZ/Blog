@@ -20,12 +20,15 @@
 <div class="row">
     <div class="col-md-10">
         <div class="nav-tabs-custom">
-            @include('partials.form-tab-headers', ['fields' => ['title', 'slug']])
             <div class="tab-content">
                 <?php $i = 0; ?>
+                <?php $i++; ?>
+                <div class="tab-pane active" id="tab_{{ $i }}">
+                    @include('blog::admin.posts.partials.create-fields', ['lang' => 'default'])
+                </div>
                 <?php if (config('asgard.blog.config.post.partials.normal.create') !== []): ?>
                     <?php foreach (config('asgard.blog.config.post.partials.normal.create') as $partial): ?>
-                    @include($partial)
+                        @include($partial)
                     <?php endforeach; ?>
                 <?php endif; ?>
                 <div class="box-footer">
@@ -60,6 +63,16 @@
                    {{--{!! Form::text("tags", Input::old("tags"), ['class' => 'input-tags', 'placeholder' => 'Tags']) !!}--}}
                    <select name="tags[]" id="tags" class="input-tags" multiple></select>
                    {!! $errors->first("tags", '<span class="help-block">:message</span>') !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label("locale", 'Post Language:') !!}
+                    <select name="locale" id="locale" class="form-control">
+                        <?php foreach (LaravelLocalization::getSupportedLocales() as $locale => $language): ?>
+                        <option value="{{ $locale }}" {{ old('locale') == $locale ? 'selected' : '' }}>
+                            {{ $language['native'] }}
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 @include('media::admin.fields.new-file-link-single', [
                     'zone' => 'thumbnail'
