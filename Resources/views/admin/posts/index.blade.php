@@ -32,7 +32,7 @@
                             <th>{{ trans('blog::post.table.status') }}</th>
                             <th>{{ trans('blog::post.table.title') }}</th>
                             <th>{{ trans('blog::post.table.slug') }}</th>
-                            <th>{{ trans('core::core.table.created at') }}</th>
+                            <th>{{ trans('core::core.table.post date') }}</th>
                             <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
                         </tr>
                     </thead>
@@ -61,9 +61,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.blog.post.edit', [$post->id]) }}">
-                                        {{ $post->created_at }}
-                                    </a>
+                                    {{ date('Y-m-d', strToTime($post->post_date)) }}
                                 </td>
                                 <td>
                                     <div class="btn-group">
@@ -81,7 +79,7 @@
                             <th>{{ trans('blog::post.table.status') }}</th>
                             <th>{{ trans('blog::post.table.title') }}</th>
                             <th>{{ trans('blog::post.table.slug') }}</th>
-                            <th>{{ trans('core::core.table.created at') }}</th>
+                            <th>{{ trans('core::core.table.post date') }}</th>
                             <th>{{ trans('core::core.table.actions') }}</th>
                         </tr>
                     </tfoot>
@@ -120,7 +118,7 @@
             "paginate": true,
             "lengthChange": true,
             "filter": true,
-            "sort": true,
+            "sort": false,
             "info": true,
             "autoWidth": true,
             "order": [[ 0, "desc" ]],

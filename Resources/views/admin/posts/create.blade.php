@@ -1,6 +1,9 @@
 @extends('layouts.master')
 
 @section('styles')
+<link href="{{{ Module::asset('blog:css/selectize.css') }}}" rel="stylesheet" type="text/css" />
+{!! Theme::style('vendor/jquery-ui/themes/base/datepicker.css') !!}
+{!! Theme::style('vendor/jquery-ui/themes/smoothness/theme.css') !!}
 @stop
 
 @section('content-header')
@@ -65,7 +68,15 @@
                    <select name="tags[]" id="tags" class="input-tags" multiple></select>
                    {!! $errors->first('tags', '<span class="help-block">:message</span>') !!}
                 </div>
-                @mediaSingle('thumbnail')
+                <div class='form-group{{ $errors->has("post_date") ? ' has-error' : '' }}'>
+                    <?php $oldPostDate = isset($post->post_date) ? date('Y-m-d', strToTime($post->post_date)) : date('Y-m-d'); ?>
+                    {!! Form::label("post_date", trans('blog::post.form.post_date')) !!}
+                    {!! Form::text("post_date", old("post_date", $oldPostDate), ['class' => 'form-control datepicker', 'placeholder' => trans('blog::post.form.post_date')]) !!}
+                    {!! $errors->first("post_date", '<span class="help-block">:message</span>') !!}
+                </div>
+                @include('media::admin.fields.new-file-link-single', [
+                    'zone' => 'thumbnail'
+                ])
             </div>
         </div>
     </div>
@@ -84,7 +95,10 @@
 @stop
 
 @section('scripts')
+<script src="{{ Module::asset('blog:js/selectize.min.js') }}" type="text/javascript"></script>
 <script src="{{ Module::asset('blog:js/MySelectize.js') }}" type="text/javascript"></script>
+
+{!! Theme::script('vendor/jquery-ui/ui/datepicker.js') !!}
 <script type="text/javascript">
     $(function() {
         //CKEDITOR.replaceAll(function( textarea, config ) {
@@ -105,6 +119,13 @@
             'findUri' : '<?= route('api.tag.findByName') ?>/',
             'createUri' : '<?= route('api.tag.store') ?>',
             'token': '<?= csrf_token() ?>'
+        });
+
+        $('.datepicker').datepicker({
+            buttonImageOnly: true,
+            dateFormat: "yy-mm-dd",
+            prevText: '',
+            nextText: ''
         });
     });
 </script>

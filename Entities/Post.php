@@ -15,7 +15,7 @@ class Post extends Model
     use Translatable, MediaRelation, PresentableTrait;
 
     public $translatedAttributes = ['title', 'slug', 'content'];
-    protected $fillable = ['category_id', 'status', 'title', 'slug', 'content'];
+    protected $fillable = ['category_id', 'status', 'title', 'slug', 'content', 'post_date'];
     protected $table = 'blog__posts';
     protected $presenter = PostPresenter::class;
     protected $casts = [
