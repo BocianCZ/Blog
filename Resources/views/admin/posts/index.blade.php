@@ -33,7 +33,7 @@
                             <th>{{ trans('blog::post.table.title') }}</th>
                             <th>{{ trans('blog::post.table.slug') }}</th>
                             <th>{{ trans('core::core.table.language') }}</th>
-                            <th>{{ trans('core::core.table.created at') }}</th>
+                            <th>{{ trans('core::core.table.post date') }}</th>
                             <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
                         </tr>
                     </thead>
@@ -66,7 +66,7 @@
                                     {{ $post->locale }}
                                 </td>
                                 <td>
-                                    {{ $post->created_at }}
+                                    {{ date('Y-m-d', strToTime($post->post_date)) }}
                                 </td>
                                 <td>
                                     <div class="btn-group">
@@ -123,7 +123,7 @@
             "paginate": true,
             "lengthChange": true,
             "filter": true,
-            "sort": true,
+            "sort": false,
             "info": true,
             "autoWidth": true,
             "order": [[ 0, "desc" ]],

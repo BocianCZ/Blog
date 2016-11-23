@@ -26,7 +26,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
      */
     public function all()
     {
-        return $this->model->with('translations', 'tags')->orderBy('created_at', 'DESC')->get();
+        return $this->model->with('translations', 'tags')->orderBy('post_date', 'DESC')->get();
     }
 
     /**
@@ -84,7 +84,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
             ->with('translations')
             ->whereStatus(Status::PUBLISHED)
             ->where('locale', '=', $lang)
-            ->orderBy('created_at', 'DESC')
+            ->orderBy('post_date', 'DESC')
             ->get();
     }
 
@@ -95,7 +95,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
      */
     public function latest($amount = 5)
     {
-        return $this->model->whereStatus(Status::PUBLISHED)->orderBy('created_at', 'desc')->take($amount)->get();
+        return $this->model->whereStatus(Status::PUBLISHED)->orderBy('post_date', 'desc')->take($amount)->get();
     }
 
     /**
@@ -108,7 +108,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
     {
         return  $this->model->whereStatus(Status::PUBLISHED)
             ->where('locale', '=', $locale)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('post_date', 'desc')
             ->take($amount)
             ->get();
     }
@@ -120,8 +120,8 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
      */
     public function getPreviousOf($post)
     {
-        return $this->model->where('created_at', '<', $post->created_at)
-            ->whereStatus(Status::PUBLISHED)->orderBy('created_at', 'desc')->first();
+        return $this->model->where('post_date', '<', $post->post_date)
+            ->whereStatus(Status::PUBLISHED)->orderBy('post_date', 'desc')->first();
     }
 
     /**
@@ -131,7 +131,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
      */
     public function getNextOf($post)
     {
-        return $this->model->where('created_at', '>', $post->created_at)
+        return $this->model->where('post_date', '>', $post->post_date)
             ->whereStatus(Status::PUBLISHED)->first();
     }
 
