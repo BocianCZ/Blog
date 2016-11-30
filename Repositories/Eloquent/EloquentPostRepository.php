@@ -30,6 +30,18 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
     }
 
     /**
+     * @param array $locales
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function allInLanguages($locales)
+    {
+        return $this->model->with('translations', 'tags')
+            ->whereIn('locale', $locales)
+            ->orderBy('post_date', 'DESC')
+            ->get();
+    }
+
+    /**
      * Update a resource
      * @param $post
      * @param  array $data

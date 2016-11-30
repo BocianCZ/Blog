@@ -1,5 +1,8 @@
 <?php namespace Modules\Blog\Http\Controllers\Admin;
 
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
+use Modules\Apache\Services\LanguageAuth;
 use Modules\Blog\Entities\Post;
 use Modules\Blog\Entities\Status;
 use Modules\Blog\Http\Requests\CreatePostRequest;
@@ -28,11 +31,17 @@ class PostController extends AdminBaseController
      */
     private $status;
 
+    /**
+     * @var LanguageAuth
+     */
+    private $langAuth;
+
     public function __construct(
         PostRepository $post,
         CategoryRepository $category,
         FileRepository $file,
-        Status $status
+        Status $status,
+        LanguageAuth $langAuth
     ) {
         parent::__construct();
 
@@ -40,6 +49,7 @@ class PostController extends AdminBaseController
         $this->category = $category;
         $this->file = $file;
         $this->status = $status;
+        $this->langAuth = $langAuth;
     }
 
     /**
@@ -49,9 +59,12 @@ class PostController extends AdminBaseController
      */
     public function index()
     {
-        $posts = $this->post->all();
+        $posts = $this->post->allInLanguages($this->langAuth->getAllowedLanguages());
 
-        return view('blog::admin.posts.index', compact('posts'));
+        return view('blog::admin.posts.index',
+            [
+                'posts' => $posts
+            ]);
     }
 
     /**
@@ -61,11 +74,12 @@ class PostController extends AdminBaseController
      */
     public function create()
     {
-        $categories = $this->category->allTranslatedIn(app()->getLocale());
-        $statuses = $this->status->lists();
         $this->assetPipeline->requireJs('ckeditor.js');
-
-        return view('blog::admin.posts.create', compact('categories', 'statuses'));
+        return view('blog::admin.posts.create', [
+            'categories' => $this->category->allTranslatedIn(app()->getLocale()),
+            'statuses' => $this->status->lists(),
+            'allowedLanguages' => $this->langAuth->getAllowedLanguages()
+        ]);
     }
 
     /**
@@ -76,6 +90,9 @@ class PostController extends AdminBaseController
      */
     public function store(CreatePostRequest $request)
     {
+        if (!$this->langAuth->hasAccess($request->get('locale'))) {
+            app()->abort(403);
+        }
         $this->post->create($request->all());
 
         flash(trans('blog::messages.post created'));
@@ -91,6 +108,10 @@ class PostController extends AdminBaseController
      */
     public function edit(Post $post)
     {
+        if (!$this->langAuth->hasAccess($post->locale)) {
+            app()->abort(403);
+        }
+
         $thumbnail = $this->file->findFileByZoneForEntity('thumbnail', $post);
         $galleryFiles = $this->file->findMultipleFilesByZoneForEntity('gallery', $post);
         $categories = $this->category->allTranslatedIn(app()->getLocale());
@@ -109,6 +130,9 @@ class PostController extends AdminBaseController
      */
     public function update(Post $post, UpdatePostRequest $request)
     {
+        if (!$this->langAuth->hasAccess($request->get('locale'))) {
+            app()->abort(403);
+        }
         $this->post->update($post, $request->all());
 
         flash(trans('blog::messages.post updated'));
@@ -124,6 +148,9 @@ class PostController extends AdminBaseController
      */
     public function destroy(Post $post)
     {
+        if (!$this->langAuth->hasAccess($post->locale)) {
+            app()->abort(403);
+        }
         $post->tags()->detach();
 
         $this->post->destroy($post);
