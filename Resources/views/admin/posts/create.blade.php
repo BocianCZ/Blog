@@ -69,7 +69,7 @@
                 <div class="form-group">
                     {!! Form::label("locale", 'Post Language:') !!}
                     <select name="locale" id="locale" class="form-control">
-                        <?php foreach (LaravelLocalization::getSupportedLocales() as $locale => $language): ?>
+                        <?php foreach (AllowedLanguages::getFullAllowedLanguages() as $locale => $language): ?>
                         <option value="{{ $locale }}" {{ old('locale') == $locale ? 'selected' : '' }}>
                             {{ $language['native'] }}
                         </option>
