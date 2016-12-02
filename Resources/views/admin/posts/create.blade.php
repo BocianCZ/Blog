@@ -45,7 +45,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="form-group">
-                    {!! Form::label("category", 'Category:') !!}
+                    {!! Form::label("category", trans('blog::blog.category:')) !!}
                     <select name="category_id" id="category" class="form-control">
                         <?php foreach ($categories as $category): ?>
                            <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -53,7 +53,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    {!! Form::label("status", 'Post status:') !!}
+                    {!! Form::label("status", trans('blog::blog.post status:')) !!}
                     <select name="status" id="status" class="form-control">
                         <?php foreach ($statuses as $id => $status): ?>
                         <option value="{{ $id }}" {{ old('status', 0) == $id ? 'selected' : '' }}>{{ $status }}</option>
@@ -61,13 +61,13 @@
                     </select>
                 </div>
                 <div class='form-group{{ $errors->has("tags") ? ' has-error' : '' }}'>
-                   {!! Form::label("tags", 'Tags:') !!}
+                   {!! Form::label("tags", trans('blog::blog.tags:')) !!}
                    {{--{!! Form::text("tags", Input::old("tags"), ['class' => 'input-tags', 'placeholder' => 'Tags']) !!}--}}
                    <select name="tags[]" id="tags" class="input-tags" multiple></select>
                    {!! $errors->first("tags", '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label("locale", 'Post Language:') !!}
+                    {!! Form::label("locale", trans('blog::blog.post language:')) !!}
                     <select name="locale" id="locale" class="form-control">
                         <?php foreach (LaravelLocalization::getSupportedLocales() as $locale => $language): ?>
                         <option value="{{ $locale }}" {{ old('locale') == $locale ? 'selected' : '' }}>
@@ -78,8 +78,8 @@
                 </div>
                 <div class='form-group{{ $errors->has("post_date") ? ' has-error' : '' }}'>
                     <?php $oldPostDate = isset($post->post_date) ? date('Y-m-d', strToTime($post->post_date)) : date('Y-m-d'); ?>
-                    {!! Form::label("post_date", trans('blog::post.form.post_date')) !!}
-                    {!! Form::text("post_date", old("post_date", $oldPostDate), ['class' => 'form-control datepicker', 'placeholder' => trans('blog::post.form.post_date')]) !!}
+                    {!! Form::label("post_date", trans('blog::post.form.post date:')) !!}
+                    {!! Form::text("post_date", old("post_date", $oldPostDate), ['class' => 'form-control datepicker', 'placeholder' => trans('blog::post.form.post date:')]) !!}
                     {!! $errors->first("post_date", '<span class="help-block">:message</span>') !!}
                 </div>
                 @include('media::admin.fields.new-file-link-single', [
