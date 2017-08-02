@@ -1,5 +1,5 @@
 {
-  "name": "bociancz/blog-module",
+  "name": "asgardcms/blog-module",
   "type": "asgard-module",
   "description": "A blog module for AsgardCMS.",
   "keywords": [
