@@ -1,19 +1,35 @@
 <?php
 
-namespace Modules\Blog\Events\Handlers;
+namespace Modules\Blog\Sidebar;
 
 use Maatwebsite\Sidebar\Group;
 use Maatwebsite\Sidebar\Item;
-use Modules\Core\Sidebar\AbstractAdminSidebar;
+use Maatwebsite\Sidebar\Menu;
+use Modules\User\Contracts\Authentication;
 
-class RegisterBlogSidebar extends AbstractAdminSidebar
+class SidebarExtender implements \Maatwebsite\Sidebar\SidebarExtender
 {
     /**
-     * Method used to define your sidebar menu groups and items
-     * @param \Maatwebsite\Sidebar\Menu $menu
-     * @return \Maatwebsite\Sidebar\Menu
+     * @var Authentication
      */
-    public function extendWith(\Maatwebsite\Sidebar\Menu $menu)
+    protected $auth;
+
+    /**
+     * @param Authentication $auth
+     *
+     * @internal param Guard $guard
+     */
+    public function __construct(Authentication $auth)
+    {
+        $this->auth = $auth;
+    }
+
+    /**
+     * @param Menu $menu
+     *
+     * @return Menu
+     */
+    public function extendWith(Menu $menu)
     {
         $menu->group(trans('core::sidebar.content'), function (Group $group) {
             $group->item(trans('blog::blog.title'), function (Item $item) {
