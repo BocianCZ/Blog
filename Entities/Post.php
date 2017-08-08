@@ -19,7 +19,7 @@ class Post extends Model
     protected $table = 'blog__posts';
     protected $presenter = PostPresenter::class;
     protected $casts = [
-        'status' => 'int',
+        'status' => 'int'
     ];
 
     public function category()
@@ -106,5 +106,13 @@ class Post extends Model
 
         #i: No relation found, return the call to parent (Eloquent) to handle it.
         return parent::__call($method, $parameters);
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getPostDate()
+    {
+        return new \DateTime($this->post_date);
     }
 }
