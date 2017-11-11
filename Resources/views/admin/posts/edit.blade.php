@@ -56,7 +56,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="form-group">
-                    {!! Form::label("category", 'Category:') !!}
+                    {!! Form::label("category", trans('blog::post.form.category')) !!}
                     <select name="category_id" id="category" class="form-control">
                         <?php foreach ($categories as $category): ?>
                         <option value="{{ $category->id }}" {{ old('category_id', $post->category_id) == $category->id ? 'selected' : '' }}>
@@ -66,7 +66,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    {!! Form::label("status", 'Post status:') !!}
+                    {!! Form::label("status", trans('blog::post.form.post status')) !!}
                     <select name="status" id="status" class="form-control">
                         <?php foreach ($statuses as $id => $status): ?>
                         <option value="{{ $id }}" {{ old('status', $post->status) == $id ? 'selected' : '' }}>
@@ -76,7 +76,7 @@
                     </select>
                 </div>
                 <div class='form-group{{ $errors->has('tags') ? ' has-error' : '' }}'>
-                    {!! Form::label('tags', 'Tags:') !!}
+                    {!! Form::label('tags', trans('blog::post.form.tags')) !!}
                     <select name="tags[]" id="tags" class="input-tags" multiple>
                         <?php foreach ($post->tags()->get() as $tag): ?>
                             <?php $tagName = $tag->hasTranslation(locale()) === true ? $tag->translate(locale())->name : 'Not translated';  ?>

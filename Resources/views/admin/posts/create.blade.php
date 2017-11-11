@@ -48,7 +48,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="form-group">
-                    {!! Form::label("category", 'Category:') !!}
+                    {!! Form::label("category", trans('blog::post.form.category')) !!}
                     <select name="category_id" id="category" class="form-control">
                         <?php foreach ($categories as $category): ?>
                            <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -56,7 +56,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    {!! Form::label("status", 'Post status:') !!}
+                    {!! Form::label("status", trans('blog::post.form.post status')) !!}
                     <select name="status" id="status" class="form-control">
                         <?php foreach ($statuses as $id => $status): ?>
                         <option value="{{ $id }}" {{ old('status', 0) == $id ? 'selected' : '' }}>{{ $status }}</option>
@@ -64,7 +64,7 @@
                     </select>
                 </div>
                 <div class='form-group{{ $errors->has('tags') ? ' has-error' : '' }}'>
-                   {!! Form::label('tags', 'Tags:') !!}
+                   {!! Form::label('tags', trans('blog::post.form.tags')) !!}
                    <select name="tags[]" id="tags" class="input-tags" multiple></select>
                    {!! $errors->first('tags', '<span class="help-block">:message</span>') !!}
                 </div>
