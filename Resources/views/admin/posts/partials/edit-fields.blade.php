@@ -11,6 +11,21 @@
        {!! Form::text("{$lang}[slug]", old("$lang.slug", $oldSlug), ['class' => 'form-control slug', 'data-slug' => 'target', 'placeholder' => trans('blog::post.form.slug')]) !!}
        {!! $errors->first("$lang.slug", '<span class="help-block">:message</span>') !!}
     </div>
+
+    <div class='form-group{{ $errors->has("{$lang}.meta_title") ? ' has-error' : '' }}'>
+        {!! Form::label("{$lang}[meta_title]", trans('blog::post.form.meta_title')) !!}
+        <?php $old = $post->hasTranslation($locale) ? $post->translate($lang)->meta_title : '' ?>
+        {!! Form::text("{$lang}[meta_title]", old("{$lang}[meta_title]", $old), ['class' => 'form-control', 'placeholder' => trans('blog::post.form.meta_title')]) !!}
+        {!! $errors->first("{$lang}.meta_title", '<span class="help-block">:message</span>') !!}
+    </div>
+
+    <div class='form-group{{ $errors->has("{$lang}.meta_description") ? ' has-error' : '' }}'>
+        {!! Form::label("{$lang}[meta_description]", trans('blog::post.form.meta_description')) !!}
+        <?php $old = $post->hasTranslation($locale) ? $post->translate($lang)->meta_description : '' ?>
+        {!! Form::textarea("{$lang}[meta_description]", old("{$lang}[meta_description]", $old), ['class' => 'form-control']) !!}
+        {!! $errors->first("{$lang}.meta_description", '<span class="help-block">:message</span>') !!}
+    </div>
+
     <?php $old = isset($post->translate($lang)->content) ? $post->translate($lang)->content : ''; ?>
     <textarea class="ckeditor" name="{{$lang}}[content]" rows="10" cols="80">
     {!! old("{$lang}.content", $old) !!}
