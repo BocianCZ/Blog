@@ -61,10 +61,10 @@ class PostController extends AdminBaseController
     {
         $posts = $this->post->allInLanguages($this->langAuth->getAllowedLanguages());
 
-        return view('blog::admin.posts.index',
-            [
-                'posts' => $posts
-            ]);
+        return view(
+            'blog::admin.posts.index',
+            ['posts' => $posts]
+        );
     }
 
     /**

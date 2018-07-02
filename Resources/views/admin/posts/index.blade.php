@@ -38,9 +38,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php if (isset($posts)): ?>
-                        <?php foreach ($posts as $post): ?>
-                            @define $post->translate($post->locale)
+                    @if (isset($posts))
+                        @foreach ($posts as $post)
                             <tr>
                                 <td>
                                     <a href="{{ route('admin.blog.post.edit', [$post->id]) }}">
@@ -54,12 +53,12 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.blog.post.edit', [$post->id]) }}">
-                                        {{ $post->title }}
+                                        {{ $post->translate($post->locale)->title }}
                                     </a>
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.blog.post.edit', [$post->id]) }}">
-                                        {{ $post->slug }}
+                                        {{ $post->translate($post->locale)->slug }}
                                     </a>
                                 </td>
                                 <td>
@@ -75,8 +74,8 @@
                                     </div>
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+                        @endforeach
+                    @endif
                     </tbody>
                     <tfoot>
                         <tr>
