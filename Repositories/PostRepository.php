@@ -24,4 +24,10 @@ interface PostRepository extends BaseRepository
      * @return object
      */
     public function getNextOf($post);
+
+    /**
+     * @param array $locales
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function allInLanguages($locales);
 }

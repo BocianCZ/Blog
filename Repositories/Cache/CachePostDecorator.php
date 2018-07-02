@@ -1,6 +1,6 @@
 <?php namespace Modules\Blog\Repositories\Cache;
 
-use Modules\Blog\Repositories\Collection;
+use Illuminate\Support\Collection;
 use Modules\Blog\Repositories\PostRepository;
 use Modules\Core\Repositories\Cache\BaseCacheDecorator;
 
@@ -22,7 +22,9 @@ class CachePostDecorator extends BaseCacheDecorator implements PostRepository
     {
         return $this->cache
             ->tags($this->entityName, 'global')
-            ->remember("{$this->locale}.{$this->entityName}.latest.{$amount}", $this->cacheTime,
+            ->remember(
+                "{$this->locale}.{$this->entityName}.latest.{$amount}",
+                $this->cacheTime,
                 function () use ($amount) {
                     return $this->repository->latest($amount);
                 }
@@ -40,7 +42,9 @@ class CachePostDecorator extends BaseCacheDecorator implements PostRepository
 
         return $this->cache
             ->tags($this->entityName, 'global')
-            ->remember("{$this->locale}.{$this->entityName}.getPreviousOf.{$postId}", $this->cacheTime,
+            ->remember(
+                "{$this->locale}.{$this->entityName}.getPreviousOf.{$postId}",
+                $this->cacheTime,
                 function () use ($post) {
                     return $this->repository->getPreviousOf($post);
                 }
@@ -58,10 +62,17 @@ class CachePostDecorator extends BaseCacheDecorator implements PostRepository
 
         return $this->cache
             ->tags($this->entityName, 'global')
-            ->remember("{$this->locale}.{$this->entityName}.getNextOf.{$postId}", $this->cacheTime,
+            ->remember(
+                "{$this->locale}.{$this->entityName}.getNextOf.{$postId}",
+                $this->cacheTime,
                 function () use ($post) {
                     return $this->repository->getNextOf($post);
                 }
             );
+    }
+
+    public function allInLanguages($locales)
+    {
+        return $this->repository->allInLanguages($locales);
     }
 }
