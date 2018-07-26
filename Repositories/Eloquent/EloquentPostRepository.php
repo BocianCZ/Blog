@@ -94,6 +94,8 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
             $q->where('title', '!=', '');
         })
             ->with('translations')
+            ->with('tags')
+            ->with('tags.translations')
             ->whereStatus(Status::PUBLISHED)
             ->where('locale', '=', $lang)
             ->orderBy('post_date', 'DESC')
