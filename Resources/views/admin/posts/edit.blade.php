@@ -102,7 +102,7 @@
                 @include('media::admin.fields.file-link', [
                     'entityClass' => 'Modules\\\\Blog\\\\Entities\\\\Post',
                     'entityId' => $post->id,
-                    'zone' => trans('blog::blog.thumbnail')
+                    'zone' => 'thumbnail'
                 ])
             </div>
         </div>
