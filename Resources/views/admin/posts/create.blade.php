@@ -33,6 +33,7 @@
                         @include($partial)
                     <?php endforeach; ?>
                 <?php endif; ?>
+                @mediaMultiple('gallery')
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary btn-flat">{{ trans('blog::post.button.create post') }}</button>
                     <button class="btn btn-default btn-flat" name="button" type="reset">{{ trans('core::core.button.reset') }}</button>
@@ -62,7 +63,7 @@
                 </div>
                 <div class='form-group{{ $errors->has("tags") ? ' has-error' : '' }}'>
                    {!! Form::label("tags", trans('blog::blog.tags:')) !!}
-                   {{--{!! Form::text("tags", Input::old("tags"), ['class' => 'input-tags', 'placeholder' => 'Tags']) !!}--}}
+                   {{--{!! Form::text("tags", old("tags"), ['class' => 'input-tags', 'placeholder' => 'Tags']) !!}--}}
                    <select name="tags[]" id="tags" class="input-tags" multiple></select>
                    {!! $errors->first("tags", '<span class="help-block">:message</span>') !!}
                 </div>
@@ -82,9 +83,7 @@
                     {!! Form::text("post_date", old("post_date", $oldPostDate), ['class' => 'form-control datepicker', 'placeholder' => trans('blog::post.form.post date:')]) !!}
                     {!! $errors->first("post_date", '<span class="help-block">:message</span>') !!}
                 </div>
-                @include('media::admin.fields.new-file-link-single', [
-                    'zone' => 'thumbnail'
-                ])
+                @mediaSingle('thumbnail')
             </div>
         </div>
     </div>
@@ -120,11 +119,7 @@
                 { key: 'b', route: "<?= route('admin.blog.post.index') ?>" }
             ]
         });
-        $('.input-tags').MySelectize({
-            'findUri' : '<?= route('api.tag.findByName') ?>/',
-            'createUri' : '<?= route('api.tag.store') ?>',
-            'token': '<?= csrf_token() ?>'
-        });
+
 
         $('.datepicker').datepicker({
             buttonImageOnly: true,

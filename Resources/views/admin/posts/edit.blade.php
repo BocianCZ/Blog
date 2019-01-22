@@ -36,11 +36,7 @@
                     <?php endforeach; ?>
                 <?php endif; ?>
                 <div class="">
-                    @include('media::admin.fields.file-link-multiple', [
-                        'entityClass' => 'Modules\\\\Blog\\\\Entities\\\\Post',
-                        'entityId' => $post->id,
-                        'zone' => 'gallery'
-                    ])
+                    @mediaMultiple('gallery', $post)
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary btn-flat">{{ trans('core::core.button.update') }}</button>
@@ -99,11 +95,7 @@
                     {!! Form::text("post_date", old("post_date", $oldPostDate), ['class' => 'form-control datepicker', 'placeholder' => trans('blog::post.form.post date:')]) !!}
                     {!! $errors->first("post_date", '<span class="help-block">:message</span>') !!}
                 </div>
-                @include('media::admin.fields.file-link', [
-                    'entityClass' => 'Modules\\\\Blog\\\\Entities\\\\Post',
-                    'entityId' => $post->id,
-                    'zone' => 'thumbnail'
-                ])
+                @mediaSingle('thumbnail', $post)
             </div>
         </div>
     </div>
@@ -140,12 +132,6 @@
             actions: [
                 { key: 'b', route: "<?= route('admin.blog.post.index') ?>" }
             ]
-        });
-
-        $('.input-tags').MySelectize({
-            'findUri' : '<?= route('api.tag.findByName') ?>/',
-            'createUri' : '<?= route('api.tag.store') ?>',
-            'token': '<?= csrf_token() ?>'
         });
 
         $('.datepicker').datepicker({
