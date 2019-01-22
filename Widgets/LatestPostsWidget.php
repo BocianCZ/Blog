@@ -1,7 +1,7 @@
 <?php namespace Modules\Blog\Widgets;
 
 use Modules\Blog\Repositories\PostRepository;
-use Modules\Core\Contracts\Setting;
+use Modules\Setting\Contracts\Setting;
 use Modules\Dashboard\Foundation\Widgets\BaseWidget;
 
 class LatestPostsWidget extends BaseWidget
