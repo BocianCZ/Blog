@@ -5,11 +5,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
 use Modules\Blog\Presenters\PostPresenter;
+use Modules\Bocian\Support\MediaHelper;
 use Modules\Media\Support\Traits\MediaRelation;
 
 class Post extends Model
 {
-    use Translatable, MediaRelation, PresentableTrait;
+    use Translatable, MediaRelation, PresentableTrait, MediaHelper;
 
     public $translatedAttributes = ['title', 'slug', 'content'];
     protected $fillable = ['category_id', 'status', 'title', 'slug', 'content', 'locale', 'post_date'];
