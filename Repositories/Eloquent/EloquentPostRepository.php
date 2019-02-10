@@ -6,8 +6,9 @@ use Modules\Blog\Entities\Status;
 use Modules\Blog\Events\PostWasCreated;
 use Modules\Blog\Events\PostWasDeleted;
 use Modules\Blog\Events\PostWasUpdated;
-use Modules\Blog\Repositories\Collection;
 use Modules\Blog\Repositories\PostRepository;
+use Modules\Bocian\Events\EntityWasCreatedOrUpdated;
+use Modules\Bocian\Events\EntityWasDeleted;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
 
 class EloquentPostRepository extends EloquentBaseRepository implements PostRepository
@@ -54,6 +55,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
         $post->tags()->sync(array_get($data, 'tags', []));
 
         event(new PostWasUpdated($post->id, $data));
+        event(new EntityWasCreatedOrUpdated($post, $data));
 
         return $post;
     }
@@ -70,6 +72,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
         $post->tags()->sync(array_get($data, 'tags', []));
 
         event(new PostWasCreated($post, $data));
+        event(new EntityWasCreatedOrUpdated($post, $data));
 
         return $post;
     }
@@ -77,6 +80,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
     public function destroy($model)
     {
         event(new PostWasDeleted($model->id, get_class($model)));
+        event(new EntityWasDeleted($model->id, get_class($model)));
 
         return $model->delete();
     }
