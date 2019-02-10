@@ -33,7 +33,7 @@ class UpdatePostRequest extends BaseFormRequest
         ];
     }
 
-    public function all()
+    public function all($keys = null)
     {
         $all = parent::all();
 
