@@ -8,6 +8,10 @@ use Modules\Blog\Presenters\PostPresenter;
 use Modules\Bocian\Support\MediaHelper;
 use Modules\Media\Support\Traits\MediaRelation;
 
+/**
+ * @property int $id
+ * @property $post_date
+ */
 class Post extends Model
 {
     use Translatable, MediaRelation, PresentableTrait, MediaHelper;
