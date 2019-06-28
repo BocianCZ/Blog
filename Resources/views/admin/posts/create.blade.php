@@ -36,8 +36,8 @@
                 @mediaMultiple('gallery')
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary btn-flat">{{ trans('blog::post.button.create post') }}</button>
-                    <button class="btn btn-default btn-flat" name="button" type="reset">{{ trans('core::core.button.reset') }}</button>
-                    <a class="btn btn-danger pull-right btn-flat" href="{{ URL::route('admin.blog.post.index')}}"><i class="fa fa-times"></i> {{ trans('core::core.button.cancel') }}</a>
+                    <button class="btn btn-default btn-flat" name="button" type="reset">{{ trans('blog::button.reset') }}</button>
+                    <a class="btn btn-danger pull-right btn-flat" href="{{ URL::route('admin.blog.post.index')}}"><i class="fa fa-times"></i> {{ trans('blog::button.cancel') }}</a>
                 </div>
             </div>
         </div> {{-- end nav-tabs-custom --}}
@@ -46,7 +46,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="form-group">
-                    {!! Form::label("category", trans('blog::blog.category:')) !!}
+                    {!! Form::label("category", trans('blog::post.form.category')) !!}
                     <select name="category_id" id="category" class="form-control">
                         <?php foreach ($categories as $category): ?>
                            <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -54,7 +54,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    {!! Form::label("status", trans('blog::blog.post status:')) !!}
+                    {!! Form::label("status", trans('blog::post.form.post status')) !!}
                     <select name="status" id="status" class="form-control">
                         <?php foreach ($statuses as $id => $status): ?>
                         <option value="{{ $id }}" {{ old('status', 0) == $id ? 'selected' : '' }}>{{ $status }}</option>
@@ -62,13 +62,13 @@
                     </select>
                 </div>
                 <div class='form-group{{ $errors->has("tags") ? ' has-error' : '' }}'>
-                   {!! Form::label("tags", trans('blog::blog.tags:')) !!}
+                   {!! Form::label("tags", trans('blog::post.form.tags')) !!}
                    {{--{!! Form::text("tags", old("tags"), ['class' => 'input-tags', 'placeholder' => 'Tags']) !!}--}}
                    <select name="tags[]" id="tags" class="input-tags" multiple></select>
                    {!! $errors->first("tags", '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label("locale", trans('blog::blog.post language:')) !!}
+                    {!! Form::label("locale", trans('blog::post.form.language')) !!}
                     <select name="locale" id="locale" class="form-control">
                         <?php foreach (AllowedLanguages::getFullAllowedLanguages() as $locale => $language): ?>
                         <option value="{{ $locale }}" {{ old('locale') == $locale ? 'selected' : '' }}>
@@ -79,8 +79,8 @@
                 </div>
                 <div class='form-group{{ $errors->has("post_date") ? ' has-error' : '' }}'>
                     <?php $oldPostDate = isset($post->post_date) ? date('Y-m-d', strToTime($post->post_date)) : date('Y-m-d'); ?>
-                    {!! Form::label("post_date", trans('blog::post.form.post date:')) !!}
-                    {!! Form::text("post_date", old("post_date", $oldPostDate), ['class' => 'form-control datepicker', 'placeholder' => trans('blog::post.form.post date:')]) !!}
+                    {!! Form::label("post_date", trans('blog::post.form.post date')) !!}
+                    {!! Form::text("post_date", old("post_date", $oldPostDate), ['class' => 'form-control datepicker', 'placeholder' => trans('blog::post.form.post date')]) !!}
                     {!! $errors->first("post_date", '<span class="help-block">:message</span>') !!}
                 </div>
                 @mediaSingle('thumbnail')

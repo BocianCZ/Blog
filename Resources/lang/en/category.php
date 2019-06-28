@@ -13,6 +13,7 @@ return [
         'created at' => 'Create at',
         'name' => 'Name',
         'slug' => 'Slug',
+        'actions' => 'Actions',
     ],
     'form' => [
         'name' => 'Name',

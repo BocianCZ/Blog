@@ -31,8 +31,8 @@
                             <th>Id</th>
                             <th>{{ trans('blog::category.table.name') }}</th>
                             <th>{{ trans('blog::category.table.slug') }}</th>
-                            <th>{{ trans('core::core.table.created at') }}</th>
-                            <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
+                            <th>{{ trans('blog::category.table.created at') }}</th>
+                            <th data-sortable="false">{{ trans('blog::category.table.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,8 +74,8 @@
                             <th>Id</th>
                             <th>{{ trans('blog::category.table.name') }}</th>
                             <th>{{ trans('blog::category.table.slug') }}</th>
-                            <th>{{ trans('core::core.table.created at') }}</th>
-                            <th>{{ trans('core::core.table.actions') }}</th>
+                            <th>{{ trans('blog::category.table.created at') }}</th>
+                            <th>{{ trans('blog::category.table.actions') }}</th>
                         </tr>
                     </tfoot>
                 </table>
