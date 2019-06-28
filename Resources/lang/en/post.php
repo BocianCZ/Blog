@@ -13,10 +13,18 @@ return [
         'title' => 'Title',
         'slug' => 'Slug',
         'status' => 'Status',
+        'language' => 'Language',
+        'post date' => 'Post Date',
+        'actions' => 'Actions',
     ],
     'form' => [
         'title' => 'Title',
         'slug' => 'Slug',
+        'category' => 'Category',
+        'post status' => 'Status',
+        'tags' => 'Tags',
+        'language' => 'Language',
+        'post date' => 'Post date',
     ],
     'navigation' => [
         'back to index' => 'Back to posts index'

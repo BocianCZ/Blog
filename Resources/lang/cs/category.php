@@ -13,6 +13,7 @@ return [
         'created at' => 'Vytvořeno',
         'name' => 'Název',
         'slug' => 'URL slug',
+        'actions' => 'Akce',
     ],
     'form' => [
         'name' => 'Název',

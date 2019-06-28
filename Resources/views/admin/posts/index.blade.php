@@ -32,9 +32,9 @@
                             <th>{{ trans('blog::post.table.status') }}</th>
                             <th>{{ trans('blog::post.table.title') }}</th>
                             <th>{{ trans('blog::post.table.slug') }}</th>
-                            <th>{{ trans('core::core.table.language') }}</th>
-                            <th>{{ trans('core::core.table.post date') }}</th>
-                            <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
+                            <th>{{ trans('blog::post.table.language') }}</th>
+                            <th>{{ trans('blog::post.table.post date') }}</th>
+                            <th data-sortable="false">{{ trans('blog::post.table.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,8 +83,9 @@
                             <th>{{ trans('blog::post.table.status') }}</th>
                             <th>{{ trans('blog::post.table.title') }}</th>
                             <th>{{ trans('blog::post.table.slug') }}</th>
-                            <th>{{ trans('core::core.table.created at') }}</th>
-                            <th>{{ trans('core::core.table.actions') }}</th>
+                            <th>{{ trans('blog::post.table.language') }}</th>
+                            <th>{{ trans('blog::post.table.post date') }}</th>
+                            <th>{{ trans('blog::post.table.actions') }}</th>
                         </tr>
                     </tfoot>
                 </table>
