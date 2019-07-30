@@ -53,12 +53,12 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.blog.post.edit', [$post->id]) }}">
-                                        {{ $post->translate($post->locale)->title }}
+                                        {{ $post->translate($post->locale)->title ?? '' }}
                                     </a>
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.blog.post.edit', [$post->id]) }}">
-                                        {{ $post->translate($post->locale)->slug }}
+                                        {{ $post->translate($post->locale)->slug ?? '' }}
                                     </a>
                                 </td>
                                 <td>
