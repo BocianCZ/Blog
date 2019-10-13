@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
-use Modules\Qayron\Services\LanguageAuth;
+use Modules\Bocian\Services\LanguageAuth;
+
 use Modules\Blog\Entities\Post;
 use Modules\Blog\Entities\Status;
 use Modules\Blog\Http\Requests\CreatePostRequest;
