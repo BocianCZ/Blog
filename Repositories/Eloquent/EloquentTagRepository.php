@@ -3,10 +3,12 @@
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\App;
 use Modules\Blog\Repositories\TagRepository;
+use Modules\Bocian\Support\EloquentRepositoryHelper;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
 
 class EloquentTagRepository extends EloquentBaseRepository implements TagRepository
 {
+    use EloquentRepositoryHelper;
     /**
      * Find a tag by its name
      * @param $name

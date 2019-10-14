@@ -9,10 +9,13 @@ use Modules\Blog\Events\PostWasUpdated;
 use Modules\Blog\Repositories\PostRepository;
 use Modules\Bocian\Events\EntityWasCreatedOrUpdated;
 use Modules\Bocian\Events\EntityWasDeleted;
+use Modules\Bocian\Support\EloquentRepositoryHelper;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
 
 class EloquentPostRepository extends EloquentBaseRepository implements PostRepository
 {
+    use EloquentRepositoryHelper;
+
     /**
      * @param  int    $id
      * @return object
