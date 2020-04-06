@@ -70,6 +70,9 @@
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{ route('admin.blog.post.edit', [$post->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
+                                        @if (config('asgard.blog.config.use-blocks'))
+                                            <a href="{{ route('admin.bocian.blocks.edit', [$post->id, get_class($post)]) }}" class="btn btn-default btn-flat"><i class="fa fa-file-text-o"></i></a>
+                                        @endif
                                         <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.blog.post.destroy', [$post->id]) }}"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>

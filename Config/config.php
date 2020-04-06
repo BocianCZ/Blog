@@ -40,4 +40,6 @@ return [
     //        }
         ],
     ],
+
+    'use-blocks' => false,
 ];
