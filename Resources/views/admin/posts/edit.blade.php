@@ -71,11 +71,16 @@
                 </div>
                 <div class='form-group{{ $errors->has("tags") ? ' has-error' : '' }}'>
                     {!! Form::label("tags", trans('blog::post.form.tags')) !!}
-                    <select name="tags[]" id="tags" class="input-tags" multiple>
-                        <?php foreach ($post->tags()->get() as $tag): ?>
-                            <?php $tagName = $tag->hasTranslation(locale()) === true ? $tag->translate(locale())->name : 'Not translated';  ?>
-                            <option value="{{ $tag->id }}" selected>{{ $tagName }}</option>
-                        <?php endforeach; ?>
+                    <br />
+                    <select name="tags[]" id="tags" class="input-tags form-control" multiple>
+                        @foreach ($tags as $tag)
+                            <option
+                                value="{{ $tag->id }}"
+                                @if ($post->tags->contains('id', $tag->id))
+                                    selected
+                                @endif
+                            >{{ $tag->name }}</option>
+                        @endforeach
                     </select>
                     {!! $errors->first("tags", '<span class="help-block">:message</span>') !!}
                 </div>

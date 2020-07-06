@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
+use Modules\Blog\Repositories\TagRepository;
 use Modules\Bocian\Services\LanguageAuth;
 
 use Modules\Blog\Entities\Post;
@@ -15,34 +16,26 @@ use Modules\Media\Repositories\FileRepository;
 
 class PostController extends AdminBaseController
 {
-    /**
-     * @var PostRepository
-     */
+    /** @var PostRepository */
     private $post;
-    /**
-     * @var CategoryRepository
-     */
+    /** @var CategoryRepository */
     private $category;
-    /**
-     * @var FileRepository
-     */
+    /** @var FileRepository */
     private $file;
-    /**
-     * @var Status
-     */
+    /** @var Status */
     private $status;
-
-    /**
-     * @var LanguageAuth
-     */
+    /** @var LanguageAuth */
     private $langAuth;
+    /** @var TagRepository */
+    private $tagRepository;
 
     public function __construct(
         PostRepository $post,
         CategoryRepository $category,
         FileRepository $file,
         Status $status,
-        LanguageAuth $langAuth
+        LanguageAuth $langAuth,
+        TagRepository $tagRepository
     ) {
         parent::__construct();
 
@@ -51,6 +44,7 @@ class PostController extends AdminBaseController
         $this->file = $file;
         $this->status = $status;
         $this->langAuth = $langAuth;
+        $this->tagRepository = $tagRepository;
     }
 
     /**
@@ -79,7 +73,8 @@ class PostController extends AdminBaseController
         return view('blog::admin.posts.create', [
             'categories' => $this->category->allTranslatedIn(app()->getLocale()),
             'statuses' => $this->status->lists(),
-            'allowedLanguages' => $this->langAuth->getAllowedLanguages()
+            'allowedLanguages' => $this->langAuth->getAllowedLanguages(),
+            'tags' => $this->tagRepository->all(),
         ]);
     }
 
@@ -113,13 +108,17 @@ class PostController extends AdminBaseController
             app()->abort(403);
         }
 
-        $thumbnail = $this->file->findFileByZoneForEntity('thumbnail', $post);
-        $galleryFiles = $this->file->findMultipleFilesByZoneForEntity('gallery', $post);
-        $categories = $this->category->allTranslatedIn(app()->getLocale());
-        $statuses = $this->status->lists();
         $this->assetPipeline->requireJs('ckeditor.js');
 
-        return view('blog::admin.posts.edit', compact('post', 'categories', 'thumbnail', 'statuses', 'galleryFiles'));
+        return view('blog::admin.posts.edit')
+            ->with([
+                'post' => $post,
+                'categories' => $this->category->allTranslatedIn(app()->getLocale()),
+                'thumbmail' => $this->file->findFileByZoneForEntity('thumbnail', $post),
+                'statuses' => $this->status->lists(),
+                'galleryFiles' => $this->file->findMultipleFilesByZoneForEntity('gallery', $post),
+                'tags' => $this->tagRepository->all(),
+            ]);
     }
 
     /**

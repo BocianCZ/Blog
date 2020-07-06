@@ -64,7 +64,12 @@
                 <div class='form-group{{ $errors->has("tags") ? ' has-error' : '' }}'>
                    {!! Form::label("tags", trans('blog::post.form.tags')) !!}
                    {{--{!! Form::text("tags", old("tags"), ['class' => 'input-tags', 'placeholder' => 'Tags']) !!}--}}
-                   <select name="tags[]" id="tags" class="input-tags" multiple></select>
+                   <br />
+                   <select name="tags[]" id="tags" class="input-tags form-control" multiple>
+                       @foreach ($tags as $tag)
+                           <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                       @endforeach
+                   </select>
                    {!! $errors->first("tags", '<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group">
