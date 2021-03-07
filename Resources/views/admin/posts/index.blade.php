@@ -31,7 +31,7 @@
                             <th>Id</th>
                             <th>{{ trans('blog::post.table.status') }}</th>
                             <th>{{ trans('blog::post.table.title') }}</th>
-                            <th>{{ trans('blog::post.table.slug') }}</th>
+                            <th>{{ trans('blog::post.table.category') }}</th>
                             <th>{{ trans('blog::post.table.language') }}</th>
                             <th>{{ trans('blog::post.table.post date') }}</th>
                             <th data-sortable="false">{{ trans('blog::post.table.actions') }}</th>
@@ -57,9 +57,10 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="{{ route('admin.blog.post.edit', [$post->id]) }}">
-                                        {{ $post->translate($post->locale)->slug ?? '' }}
-                                    </a>
+                                    {{ $post->category->name }}
+                                    @if ($post->order > 0)
+                                        ({{ $post->order }})
+                                    @endif
                                 </td>
                                 <td>
                                     {{ $post->locale }}
@@ -85,7 +86,7 @@
                             <th>Id</th>
                             <th>{{ trans('blog::post.table.status') }}</th>
                             <th>{{ trans('blog::post.table.title') }}</th>
-                            <th>{{ trans('blog::post.table.slug') }}</th>
+                            <th>{{ trans('blog::post.table.category') }}</th>
                             <th>{{ trans('blog::post.table.language') }}</th>
                             <th>{{ trans('blog::post.table.post date') }}</th>
                             <th>{{ trans('blog::post.table.actions') }}</th>
@@ -124,9 +125,10 @@
     $(function () {
         $('.data-table').dataTable({
             "paginate": true,
+            "pageLength": 50,
             "lengthChange": true,
             "filter": true,
-            "sort": false,
+            "sort": true,
             "info": true,
             "autoWidth": true,
             "order": [[ 0, "desc" ]],

@@ -16,6 +16,7 @@ return [
         'language' => 'Jazyk',
         'post date' => 'Datum novinky',
         'actions' => 'Akce',
+        'category' => 'Kategorie',
     ],
     'form' => [
         'title' => 'Titulek',
@@ -25,6 +26,7 @@ return [
         'tags' => 'Tagy',
         'language' => 'Jazyk',
         'post date' => 'Datum novinky',
+        'order' => 'Pořadí v rámci kategorie',
     ],
     'navigation' => [
         'back to index' => 'Zpět na seznam novinek'

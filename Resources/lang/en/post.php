@@ -16,6 +16,7 @@ return [
         'language' => 'Language',
         'post date' => 'Post Date',
         'actions' => 'Actions',
+        'category' => 'Category',
     ],
     'form' => [
         'title' => 'Title',
@@ -25,6 +26,7 @@ return [
         'tags' => 'Tags',
         'language' => 'Language',
         'post date' => 'Post date',
+        'order' => 'Post Order in Category',
     ],
     'navigation' => [
         'back to index' => 'Back to posts index'

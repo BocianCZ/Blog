@@ -100,6 +100,12 @@
                     {!! Form::text("post_date", old("post_date", $oldPostDate), ['class' => 'form-control datepicker', 'placeholder' => trans('blog::post.form.post date')]) !!}
                     {!! $errors->first("post_date", '<span class="help-block">:message</span>') !!}
                 </div>
+
+                <div class='form-group{{ $errors->has("order") ? ' has-error' : '' }}'>
+                    {!! Form::label("order", trans('blog::post.form.order')) !!}
+                    {!! Form::text("order", old("order", $post->order), ['class' => 'form-control', 'placeholder' => trans('blog::post.form.post order in category')]) !!}
+                    {!! $errors->first("order", '<span class="help-block">:message</span>') !!}
+                </div>
                 @mediaSingle('thumbnail', $post)
             </div>
         </div>

@@ -11,13 +11,14 @@ use Modules\Media\Support\Traits\MediaRelation;
 /**
  * @property int $id
  * @property $post_date
+ * @property int $order
  */
 class Post extends Model
 {
     use Translatable, MediaRelation, PresentableTrait, MediaHelper;
 
     public $translatedAttributes = ['title', 'slug', 'content'];
-    protected $fillable = ['category_id', 'status', 'title', 'slug', 'content', 'locale', 'post_date'];
+    protected $fillable = ['category_id', 'status', 'title', 'slug', 'content', 'locale', 'post_date', 'order'];
     protected $table = 'blog__posts';
     protected $presenter = PostPresenter::class;
     protected $casts = [
