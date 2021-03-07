@@ -5,6 +5,6 @@ use Illuminate\Database\Eloquent\Model;
 class PostTranslation extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['title', 'slug', 'content'];
+    protected $fillable = ['title', 'slug', 'content', 'locale'];
     protected $table = 'blog__post_translations';
 }

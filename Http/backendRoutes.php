@@ -20,6 +20,7 @@ $router->group(['prefix' => '/blog'], function (Router $router) {
     $router->get('posts/create', ['as' => 'admin.blog.post.create', 'uses' => 'PostController@create']);
     $router->post('posts', ['as' => 'admin.blog.post.store', 'uses' => 'PostController@store']);
     $router->get('posts/{post}/edit', ['as' => 'admin.blog.post.edit', 'uses' => 'PostController@edit']);
+    $router->get('posts/{post}/copy', ['as' => 'admin.blog.post.copy', 'uses' => 'PostController@copy']);
     $router->put('posts/{post}', ['as' => 'admin.blog.post.update', 'uses' => 'PostController@update']);
     $router->delete('posts/{post}', ['as' => 'admin.blog.post.destroy', 'uses' => 'PostController@destroy']);
 

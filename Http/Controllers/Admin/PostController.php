@@ -122,6 +122,25 @@ class PostController extends AdminBaseController
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Post $post
+     * @return \Illuminate\View\View
+     */
+    public function copy(Post $post)
+    {
+        if (!$this->langAuth->hasAccess($post->locale)) {
+            app()->abort(403);
+        }
+
+        $this->post->copy($post);
+
+        return redirect()
+            ->route('admin.blog.post.index')
+            ->with('success', trans('blog::messages.post copied'));
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param Post $post

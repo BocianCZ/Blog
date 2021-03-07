@@ -6,6 +6,7 @@ return [
     'post not found' => 'Post not found.',
     'post updated' => 'Post successfully updated.',
     'post deleted' => 'Post successfully deleted.',
+    'post copied' => 'Post successfully copied.',
 
     'title is required' => 'Title is required',
     'slug is required' => 'Slug is required',
