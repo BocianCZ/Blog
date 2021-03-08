@@ -7,6 +7,7 @@ use Modules\Blog\Events\PostWasCreated;
 use Modules\Blog\Events\PostWasDeleted;
 use Modules\Blog\Events\PostWasUpdated;
 use Modules\Blog\Repositories\PostRepository;
+use Modules\Bocian\Entities\Block;
 use Modules\Bocian\Events\EntityWasCreatedOrUpdated;
 use Modules\Bocian\Events\EntityWasDeleted;
 use Modules\Bocian\Support\EloquentRepositoryHelper;
@@ -168,4 +169,50 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
             $q->where('slug', "$slug");
         })->with('translations')->whereStatus(Status::PUBLISHED)->firstOrFail();
     }
+
+    public function copy(Post $post)
+    {
+        try {
+            \DB::beginTransaction();
+
+            $newPost = $this->create($post->getAttributes());
+            foreach ($post->translations as $translation) {
+                $translationData = $translation->getAttributes();
+                $translationData['title'] .= ' (COPY)';
+
+                $newPost->translations()->create($translationData);
+            }
+
+            foreach ($post->tags as $tag) {
+                $newPost->tags()->attach($tag->id);
+            }
+
+            foreach (\UniversalBlock::all($post) as $block) {
+                $blockData = $block->getAttributes();
+                unset($blockData['id']);
+                $blockData['entity_id'] = $newPost->id;
+                $blockData['content'] = $block->content;
+
+                $newBlock = Block::create($blockData);
+
+                // also make sure to copy all file relations
+                foreach ($block->files as $file) {
+                    $newBlock->files()->attach($file->id, [
+                        'imageable_type' => Block::class,
+                        'zone' => $file->pivot->zone,
+                        'order' => $file->pivot->order,
+                    ]);
+                }
+            }
+
+            \DB::commit();
+        } catch (\Exception $e) {
+            \DB::rollback();
+            throw $e;
+        }
+
+
+    }
+
+
 }

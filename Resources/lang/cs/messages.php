@@ -6,6 +6,7 @@ return [
     'post not found' => 'Novinka nenalezena.',
     'post updated' => 'Novinka editována.',
     'post deleted' => 'Novinka smazána.',
+    'post copied' => 'Novinka zkopírována.',
 
     'title is required' => 'Titulek je povinné pole',
     'slug is required' => 'URL slug je povinné pole',

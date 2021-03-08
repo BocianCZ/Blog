@@ -1,5 +1,6 @@
 <?php namespace Modules\Blog\Repositories;
 
+use Modules\Blog\Entities\Post;
 use Modules\Core\Repositories\BaseRepository;
 
 interface PostRepository extends BaseRepository
@@ -30,4 +31,6 @@ interface PostRepository extends BaseRepository
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function allInLanguages($locales);
+
+    public function copy(Post $post);
 }
