@@ -191,8 +191,18 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
                 $blockData = $block->getAttributes();
                 unset($blockData['id']);
                 $blockData['entity_id'] = $newPost->id;
+                $blockData['content'] = $block->content;
 
-                Block::create($blockData);
+                $newBlock = Block::create($blockData);
+
+                // also make sure to copy all file relations
+                foreach ($block->files as $file) {
+                    $newBlock->files()->attach($file->id, [
+                        'imageable_type' => Block::class,
+                        'zone' => $file->pivot->zone,
+                        'order' => $file->pivot->order,
+                    ]);
+                }
             }
 
             \DB::commit();
