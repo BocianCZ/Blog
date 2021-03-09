@@ -9,4 +9,9 @@
        {!! Form::text("{$lang}[slug]", old("{$lang}[slug]"), ['class' => 'form-control slug', 'data-slug' => 'target', 'placeholder' => trans('blog::category.form.slug')]) !!}
        {!! $errors->first("{$lang}[slug]", '<span class="help-block">:message</span>') !!}
    </div>
+    <div class='form-group{{ $errors->has("{$lang}[description]") ? ' has-error' : '' }}'>
+        {!! Form::label("{$lang}[description]", trans('blog::category.form.description')) !!}
+        {!! Form::textarea("{$lang}[description]", old("{$lang}[slug]"), ['class' => 'form-control', 'placeholder' => trans('blog::category.form.description')]) !!}
+        {!! $errors->first("{$lang}[description]", '<span class="help-block">:message</span>') !!}
+    </div>
 </div>

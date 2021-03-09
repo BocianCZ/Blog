@@ -18,6 +18,7 @@ return [
     'form' => [
         'name' => 'Název',
         'slug' => 'URL slug',
+        'description' => 'Popis',
     ],
     'navigation' => [
         'back to index' => 'Zpět na seznam kategorií'

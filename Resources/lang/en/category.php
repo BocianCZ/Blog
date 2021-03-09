@@ -18,6 +18,7 @@ return [
     'form' => [
         'name' => 'Name',
         'slug' => 'Slug',
+        'description' => 'Description',
     ],
     'navigation' => [
         'back to index' => 'Back to category index'
